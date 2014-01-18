@@ -1,0 +1,10 @@
+outline="$NOW "
+
+outline+="$(wc -l $tempkwfile | sed -e 's: .*$::') "
+
+for arch in $archlist ; do 
+	outline+="$(grep $arch $tempkwfile | wc -l | sed -e 's: .*$::') "
+	outline+="$(grep $arch $tempkwfile | grep -v ~$arch | wc -l | sed -e 's: .*$::') "
+done
+
+echo $outline

@@ -1,0 +1,61 @@
+#!/bin/bash
+
+
+logdir=/home/huettel/.gentoo-bugs
+now=`date -u +%s`
+plotsize='700'
+webdir='/srv/www-akhuettel/htdocs/gentoo-bugs'
+
+
+
+for script in /home/huettel/bin/stats.d/* ; do 
+
+  name=$(basename ${script})
+
+  # now evaluate
+  echo "$now	$(${script})" >> $logdir/${name}.log
+
+  # the start time of the plots
+  for scope in month all year ; do 
+  case $scope in 
+        all)
+                timefrom="1303676000"
+                ;;
+        year)
+                timefrom=$(($NOW-60*60*24*365))
+                ;;
+        month)
+                timefrom=$(($NOW-60*60*24*31))
+                ;;
+  esac
+  timefrom=`echo ${timefrom} | sed -e 's:"::g'`
+
+  plotcommand=''
+  i=2
+  # the columns, titles, and the plot command
+  for column in $(cat /home/huettel/bin/stats.d/.${name}.txt) ; do
+    plotcommand+=" '${logdir}/${name}.log
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+done
+
+
+

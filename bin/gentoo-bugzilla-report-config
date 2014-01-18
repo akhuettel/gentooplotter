@@ -1,0 +1,39 @@
+#!/bin/bash
+
+DATA='/home/huettel/.gentoo-bugs/log.txt'
+PLOTDIR='/home/huettel/.gentoo-bugs'
+PLOTBASE="$PLOTDIR/plot"
+OUTPUTSIZE='800'
+WEBDIR='/srv/www-akhuettel/htdocs/gentoo-bugs'
+
+URLs=( 'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=bug-wranglers%40gentoo.org&emailassigned_to1=1&emailtype1=exact&list_id=120665&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=kde%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=substring&list_id=120675&query_format=advanced&ctype=csv'
+	''
+	''
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=recruiters&emailassigned_to1=1&emailtype1=substring&list_id=120681&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=sci-physics&emailassigned_to1=1&emailtype1=substring&list_id=120685&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=sci-electronics&emailassigned_to1=1&emailtype1=substring&list_id=120695&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email2=%5Esci.%2A%40gentoo.org%24&emailassigned_to2=1&emailcc2=1&emailreporter2=1&emailtype2=regexp&list_id=120703&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email2=vmware%40gentoo.org&emailassigned_to2=1&emailcc2=1&emailreporter2=1&emailtype2=substring&list_id=120709&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=dilfridge%40gentoo.org&emailassigned_to1=1&emailtype1=substring&list_id=120713&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email2=sunrise%40gentoo.org&emailassigned_to2=1&emailcc2=1&emailreporter2=1&emailtype2=substring&list_id=120719&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=tex%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=substring&list_id=120727&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=sci-geosciences&emailassigned_to1=1&emailtype1=substring&list_id=120731&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=arm%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=substring&list_id=120735&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=printing%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=substring&list_id=120735&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=openoffice%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=substring&list_id=120735&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=amd64%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=substring&list_id=120735&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=gnome%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=substring&list_id=120735&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=x86%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=substring&list_id=120735&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=ppc%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=substring&list_id=120735&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=qt%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=substring&list_id=120735&query_format=advanced&ctype=csv'
+	'http://bugs.gentoo.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=CONFIRMED&bug_status=IN_PROGRESS&email1=perl%40gentoo.org&emailassigned_to1=1&emailcc1=1&emailtype1=substring&list_id=120735&query_format=advanced&ctype=csv'
+	)
+
+NAMEs=( 'Open BugWrangler bugs' 'Open KDE bugs' 'Open KDE bugs with [kde testing] in whiteboard' 
+	'Open KDE bugs for kde 4.4.2 / 4.4.4' 'Open Recruiter bugs' 'Open Sci-Physics bugs' 'Open Sci-Electronics bugs' 
+	'Open Sci bugs' 'Open VMware bugs' 'Open bugs assigned to dilfridge@gentoo.org' 'Open Sunrise bugs' 'Open TeX bugs'
+	'Open Sci-Geosciences bugs' 'Open ARM bugs' 'Open Printing bugs' 'Open Office bugs' 'Open AMD64 bugs' 
+        'Open Gnome bugs' 'Open X86 bugs' 'Open PPC bugs' 'Open Qt bugs' 'Open Perl bugs' )
+
+PAGEORDER=( 9 1 7 14 5 6 12 11 8 17 15 20 21 16 18 19 13 4 0 10 )

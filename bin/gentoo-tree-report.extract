@@ -1,0 +1,3 @@
+( for name in `find /usr/portage/metadata/md5-cache/ -type f`; do 
+	grep ^KEYWORDS "${name}" | sed -e 's:^KEYWORDS=::'
+done ) > $tempkwfile

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source /home/huettel/bin/gentoo-tree-report.conf
+source /home/huettel/bin/gentoo-tree-report.eval

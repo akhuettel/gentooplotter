@@ -1,0 +1,3 @@
+( for name in `find /usr/portage/metadata/cache/ -type f`; do 
+	sed -n '9P' "${name}"
+done ) > $tempkwfile

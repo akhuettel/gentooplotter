@@ -1,0 +1,25 @@
+#!/bin/bash
+
+source /home/huettel/bin/gentoo-bugzilla-report-config
+
+NOW=`date -u +%s`
+
+echo -n "$NOW " >> $DATA
+for ((x=0; x<${#URLs[*]}; x++)); do
+
+	if [ "x${URLs[$x]}" = "x" ]; then
+		number=x
+	else
+		number=`wget -q -O - ${URLs[$x]} | wc -l `
+		if [ "x$number" = "x0" ]; then
+			number=x
+		fi
+	fi
+
+	echo -n "$number " >> $DATA
+	sleep 1m
+
+done
+echo >> $DATA
+
+source /home/huettel/bin/gentoo-bugzilla-report-plot
