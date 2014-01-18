@@ -1,10 +1,7 @@
 #!/bin/bash
 
-source /home/huettel/bin/gentoo-bugzilla-report-config
+source ${moddir}/bugzilla.config
 
-NOW=`date -u +%s`
-
-echo -n "$NOW " >> $DATA
 for ((x=0; x<${#URLs[*]}; x++)); do
 
 	if [ "x${URLs[$x]}" = "x" ]; then
@@ -16,10 +13,7 @@ for ((x=0; x<${#URLs[*]}; x++)); do
 		fi
 	fi
 
-	echo -n "$number " >> $DATA
+	echo -n "$number	"
 	sleep 1m
 
 done
-echo >> $DATA
-
-source /home/huettel/bin/gentoo-bugzilla-report-plot

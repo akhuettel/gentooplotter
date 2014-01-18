@@ -1,20 +1,9 @@
 #!/bin/bash
 
-source /home/huettel/bin/gentoo-bugzilla-report-config
-
-NOW=`date -u +%s`
-
-for name in all year month ; do 
-
-case $name in
-	all)   FROM="\"1270309047\"" ;;
-	year)  FROM="\"$(($NOW - 31536000))\"";;
-	month) FROM="\"$(($NOW - 5356800))\"";;
-esac
+source ${moddir}/bugzilla.config
 
 for ((x=0; x<${#URLs[*]}; x++)); do
-	
-	gnuplot &> /dev/null <<THEGNUPLOTSCRIPTHERE
+gnuplot &> /dev/null <<THEGNUPLOTSCRIPTHERE
 
 set terminal postscript eps noenhanced defaultplex \
    leveldefault color colortext \
@@ -121,7 +110,7 @@ set x2label ""
 set x2label  offset character 0, 0, 0 font "" textcolor lt -1 norotate
 #set xrange [ * : * ] noreverse nowriteback  # (currently ["":""] )
 
-set xrange [ $FROM : * ]
+set xrange [ ${timefrom} : ${now} ]
 
 set x2range [ * : * ] noreverse nowriteback  # (currently [3.23624e+08:3.23624e+08] )
 set ylabel "" 

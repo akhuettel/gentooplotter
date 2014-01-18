@@ -1,23 +1,28 @@
 #!/bin/bash
 
+[ -f ~/.gentooplotter ] && source ~/.gentoplotter
+# things that can be set in there: 
+# plotdir: the main directory from the git repo
 
-logdir=/home/huettel/.gentoo-bugs
+plotdir="${plotdir:-/home/huettel/gentooplotter}"
+
+logdir=${plotdir}/log
+webdir=${plotdir}/html
+bindir=${plotdir}/bin
+moddir=${plotdir}/bin/modules
+
 now=`date -u +%s`
 plotsize='700'
-webdir='/srv/www-akhuettel/htdocs/gentoo-bugs'
 
+for script in ${moddir}/*.extract ; do 
 
-
-for script in /home/huettel/bin/stats.d/* ; do 
-
-  name=$(basename ${script})
+  name=$(basename ${script} .extract)
 
   # now evaluate
-  echo "$now	$(${script})" >> $logdir/${name}.log
+  echo "$now	$(source ${script}.extract)" >> $logdir/${name}.log
 
-  # the start time of the plots
   for scope in month all year ; do 
-  case $scope in 
+    case $scope in 
         all)
                 timefrom="1303676000"
                 ;;
@@ -27,35 +32,8 @@ for script in /home/huettel/bin/stats.d/* ; do
         month)
                 timefrom=$(($NOW-60*60*24*31))
                 ;;
-  esac
-  timefrom=`echo ${timefrom} | sed -e 's:"::g'`
-
-  plotcommand=''
-  i=2
-  # the columns, titles, and the plot command
-  for column in $(cat /home/huettel/bin/stats.d/.${name}.txt) ; do
-    plotcommand+=" '${logdir}/${name}.log
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    esac
+    source ${moddir}/${script}.plot  
+  done
 
 done
-
-
-
