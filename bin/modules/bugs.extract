@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ${moddir}/bugzilla.config
+source ${moddir}/bugs.config
 
 for ((x=0; x<${#URLs[*]}; x++)); do
 

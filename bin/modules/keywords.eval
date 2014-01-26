@@ -1,2 +1,0 @@
-echo -n "$NOW "
-cat $tempkwfile | /home/huettel/bin/gentoo-tree-report.eval.py ${archlist[*]}

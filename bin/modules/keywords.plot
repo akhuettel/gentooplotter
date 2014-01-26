@@ -13,35 +13,6 @@ source /home/huettel/bin/gentoo-tree-report.conf
 
 
 
-if [[ -z $1 ]]; then 
-
-source /home/huettel/bin/gentoo-tree-report.extract
-
-fi
-
-source /home/huettel/bin/gentoo-tree-report.eval >> $logfile
-
-
-
-for scope in month all year ; do 
-
-case $scope in 
-	all)
-		LEFTTIME="1024162943"
-		;;
-	year)
-		LEFTTIME=$(($NOW-60*60*24*365))
-		;;
-	month)
-		LEFTTIME=$(($NOW-60*60*24*31))
-		;;
-esac
-LEFTTIME=`echo ${LEFTTIME} | sed -e 's:"::g'`
-
-# echo "scope: $scope now: $NOW lefttime: $LEFTTIME"
-
-# construct the plot command for the overview plot
-
 for al in major prefix freebsd; do 
 
 
@@ -175,7 +146,7 @@ set x2label ""
 set x2label  offset character 0, 0, 0 font "" textcolor lt -1 norotate
 #set xrange [ * : * ] noreverse nowriteback  # (currently ["":""] )
 
-set xrange [ "${LEFTTIME}" : * ]
+set xrange [ "${timefrom}" : * ]
 
 set x2range [ * : * ] noreverse nowriteback  # (currently [3.23624e+08:3.23624e+08] )
 set ylabel "" 
@@ -354,7 +325,7 @@ set x2label ""
 set x2label  offset character 0, 0, 0 font "" textcolor lt -1 norotate
 #set xrange [ * : * ] noreverse nowriteback  # (currently ["":""] )
 
-set xrange [ "${LEFTTIME}" : * ]
+set xrange [ "${timefrom}" : * ]
 
 set x2range [ * : * ] noreverse nowriteback  # (currently [3.23624e+08:3.23624e+08] )
 set ylabel "" 
@@ -520,7 +491,7 @@ set x2label ""
 set x2label  offset character 0, 0, 0 font "" textcolor lt -1 norotate
 #set xrange [ * : * ] noreverse nowriteback  # (currently ["":""] )
 
-set xrange [ "${LEFTTIME}" : * ]
+set xrange [ "${timefrom}" : * ]
 
 set x2range [ * : * ] noreverse nowriteback  # (currently [3.23624e+08:3.23624e+08] )
 set ylabel "" 
@@ -602,6 +573,3 @@ THEINDEXFOOTER
 
 cp $PLOTDIR/kw${hscope}.php $WEBDIR
 
-
-
-done

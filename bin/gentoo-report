@@ -10,6 +10,7 @@ logdir=${plotdir}/log
 webdir=${plotdir}/html
 bindir=${plotdir}/bin
 moddir=${plotdir}/bin/modules
+tmpdir=${plotdir}/tmp
 
 now=`date -u +%s`
 plotsize='700'

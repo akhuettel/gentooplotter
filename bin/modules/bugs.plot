@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ${moddir}/bugzilla.config
+source ${moddir}/bugs.config
 
 for ((x=0; x<${#URLs[*]}; x++)); do
 gnuplot &> /dev/null <<THEGNUPLOTSCRIPTHERE
@@ -10,7 +10,7 @@ set terminal postscript eps noenhanced defaultplex \
    solid dashlength 1.0 linewidth 1.0 butt noclip \
    palfuncparam 2000,0.003 \
    "Helvetica" 17
-set output "$PLOTBASE-$name-$x.ps"
+set output "$webdir/bugs/b-$scope-$x.ps"
 unset clip points
 set clip one
 unset clip two
@@ -150,8 +150,8 @@ plot "$DATA" using 1:$((x+2)) with lines title "${NAMEs[$x]}" lw 1.5 lt 5
 
 THEGNUPLOTSCRIPTHERE
 
-	convert -alpha on -negate -density 300 -geometry $OUTPUTSIZE $PLOTBASE-$name-$x.ps $PLOTBASE-$name-$x.png
-	cp $PLOTBASE-$name-$x.png $WEBDIR
+	convert -alpha on -negate -density 300 -geometry $OUTPUTSIZE $PLOTBASE-$scope-$x.ps $PLOTBASE-$scope-$x.png
+	cp $PLOTBASE-$scope-$x.png $WEBDIR
 
 done
 
