@@ -11,7 +11,7 @@ gnuplot <<THEGNUPLOTSCRIPTHERE
 
 load "${moddir}/plotdefaults"
 unset logscale y
-set xrange [ ${timefrom} : ${now} ]
+set xrange [ $((${timefrom}-${stupidgnuplotoffset})) : $((${now}-${stupidgnuplotoffset})) ]
 set yrange [ 0 : * ] noreverse nowriteback 
 set output "${modwebdir}/${scope}.ps"
 ${plotcommand}

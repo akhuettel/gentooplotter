@@ -12,6 +12,8 @@ bindir=${plotdir}/bin
 moddir=${plotdir}/bin/modules
 tmpdir=${plotdir}/tmp
 
+stupidgnuplotoffset=946684800
+
 now=`date -u +%s`
 plotsize='700'
 
@@ -37,16 +39,23 @@ for script in ${moddir}/*.extract ; do
   for scope in month all year ; do 
     case $scope in 
         all)
-                timefrom="1303676000"
+                timefrom=1303676000
                 ;;
         year)
-                timefrom=$(($NOW-60*60*24*365))
+                timefrom=$(($now-60*60*24*365))
                 ;;
         month)
-                timefrom=$(($NOW-60*60*24*31))
+                timefrom=$(($now-60*60*24*31))
                 ;;
     esac
     source ${moddir}/${modname}.plot  
   done
 
+done
+
+for webimage in $(find ${webdir} -name "*.ps"); do 
+  if [[ ${webimage} -nt ${webimage/%.ps/.png} ]] ; then
+    echo "Regenerating ${webimage/%.ps/.png}"
+    convert -alpha on -negate -density 300 -rotate 90 -geometry ${plotsize} ${webimage} ${webimage/%.ps/.png}
+  fi
 done
