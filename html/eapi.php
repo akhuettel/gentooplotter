@@ -4,15 +4,15 @@ include("header.php");
 
 <h1>Gentoo EAPI distribution</h1>
 
-<a 
+<a>
   <img src='eapi/month.png'>
 </a>
 
-<a 
+<a>
   <img src='eapi/year.png'>
 </a>
 
-<a 
+<a>
   <img src='eapi/all.png'>
 </a>
 
