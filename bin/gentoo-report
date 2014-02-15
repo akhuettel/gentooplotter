@@ -17,10 +17,10 @@ plotsize='700'
 
 for script in ${moddir}/*.extract ; do 
 
-  name=$(basename ${script} .extract)
+  export modname=$(basename ${script} .extract)
 
   # now evaluate
-  echo "$now	$(source ${script}.extract)" >> $logdir/${name}.log
+  echo "$now	$(source ${modname}.extract)" >> $logdir/${modname}.log
 
   for scope in month all year ; do 
     case $scope in 
@@ -34,7 +34,7 @@ for script in ${moddir}/*.extract ; do
                 timefrom=$(($NOW-60*60*24*31))
                 ;;
     esac
-    source ${moddir}/${script}.plot  
+    source ${moddir}/${modname}.plot  
   done
 
 done

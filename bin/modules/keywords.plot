@@ -8,9 +8,7 @@ hasq() {
         [[ " ${*:2} " == *" $1 "* ]]
 }
 
-source /home/huettel/bin/gentoo-tree-report.conf
-
-
+source ${moddir}/${modname}.conf
 
 
 for al in major prefix freebsd; do 
@@ -29,11 +27,11 @@ for (( x = 1 ; x < ${#columns[*]} ; x++ )); do
 		# echo \"$curarch\" in \"$alarchlist\"
 		if $(hasq ${curarch} ${alarchlist}) ; then 
 			# echo "adding \"${curarch}\" \"$kwst\" to plot"
-			plotcommand+=" \"$logfile\" using 1:$((x+2)) with lines title \"${columns[$x]//_/ }\" lw 2 lt $((${x}%8+1)) lc ${x}, "
+			plotcommand+=" \"${logdir}/${modname}.log\" using 1:$((x+2)) with lines title \"${columns[$x]//_/ }\" lw 2 lt $((${x}%8+1)) lc ${x}, "
 		fi
 	fi
 done
-plotcommand+=" \"$logfile\" using 1:2 with lines title \"${columns[0]//_/ }\" lw 3 lt 1 lc 0"
+plotcommand+=" \"${logdir}/${modname}.log\" using 1:2 with lines title \"${columns[0]//_/ }\" lw 3 lt 1 lc 0"
 
 
 # generate the overview plot
@@ -46,7 +44,7 @@ set terminal postscript portrait noenhanced defaultplex \
    dashed dashlength 1.5 linewidth 1.0 butt noclip \
    palfuncparam 2000,0.003 \
    "Helvetica" 9
-set output "$PLOTBASE-$scope-$al.ps"
+set output "${webdir}/${modname}/$PLOTBASE-$scope-$al.ps"
 unset clip points
 set clip one
 unset clip two
@@ -192,13 +190,10 @@ ${plotcommand}
 THEGNUPLOTSCRIPTHERE
 
 
-# convert the overview plot to png and copy it to the webdir
+# convert the overview plot to png
 
 
-convert -alpha on -negate -density 300 -geometry $OUTPUTSIZE $PLOTBASE-$scope-$al.ps $PLOTBASE-$scope-$al.png
-cp $PLOTBASE-$scope-$al.png $WEBDIR
-
-
+convert -alpha on -negate -density 300 -geometry ${plotsize} ${webdir}/${modname}/kwplot-$scope-$al.ps ${webdir}/${modname}/kwplot-$scope-$al.png
 
 
 
@@ -225,7 +220,7 @@ set terminal postscript eps noenhanced defaultplex \
    solid dashlength 1.0 linewidth 1.0 butt noclip \
    palfuncparam 2000,0.003 \
    "Helvetica" 17
-set output "$PLOTBASE-$scope-$x.ps"
+set output "${webdir}/${modname}/kwplot-$scope-$x.ps"
 unset clip points
 set clip one
 unset clip two
@@ -365,8 +360,8 @@ plot "$logfile" using 1:$((x+2)) with lines title "${columns[$x]//_/ }" lw 1.5 l
 
 THEGNUPLOTSCRIPTHERE
 
-	convert -alpha on -negate -density 300 -geometry $OUTPUTSIZE $PLOTBASE-$scope-$x.ps $PLOTBASE-$scope-$x.png
-	cp $PLOTBASE-$scope-$x.png $WEBDIR
+	convert -alpha on -negate -density 300 -geometry ${plotsize} $PLOTBASE-$scope-$x.ps $PLOTBASE-$scope-$x.png
+	cp $PLOTBASE-$scope-$x.png ${webdir}/${modname}
 
 
 
@@ -532,8 +527,8 @@ plot "$logfile" using 1:$((x+2)) with lines title "${columns[$((x))]//_/ }" lw 1
 
 THEGNUPLOTSCRIPTHERE
 
-	convert -alpha on -negate -density 300 -geometry $OUTPUTSIZE $PLOTBASE-$scope-$x.ps $PLOTBASE-$scope-$x.png
-	cp $PLOTBASE-$scope-$x.png $WEBDIR
+	convert -alpha on -negate -density 300 -geometry ${plotsize} $PLOTBASE-$scope-$x.ps $PLOTBASE-$scope-$x.png
+	cp $PLOTBASE-$scope-$x.png ${webdir}/${modname}
 
 done
 
@@ -544,7 +539,7 @@ done
 
 hscope=${scope/all/}
 
-cat <<THEINDEXHEADER > $PLOTDIR/kw${hscope}.php
+cat <<THEINDEXHEADER > ${webdir}/${modname}/kw${hscope}.php
 <?php
 include("../private/header.php");
 ?>
@@ -560,16 +555,16 @@ THEINDEXHEADER
 
 
 for ((x=1; x<${#columns[*]}; x+=2)); do
-  echo "  <img src='kwplot-${scope}-$x.png'><br>"            >> $PLOTDIR/kw${hscope}.php
+  echo "  <img src='kwplot-${scope}-$x.png'><br>"            >> ${webdir}/${modname}/kw${hscope}.php
 done
 
 
-cat <<THEINDEXFOOTER >> $PLOTDIR/kw${hscope}.php
+cat <<THEINDEXFOOTER >> ${webdir}/${modname}/kw${hscope}.php
 
 <?php
 include("../private/footer.php");
 ?>
 THEINDEXFOOTER
 
-cp $PLOTDIR/kw${hscope}.php $WEBDIR
+cp ${webdir}/${modname}/kw${hscope}.php ${webdir}/${modname}
 
