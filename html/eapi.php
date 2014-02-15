@@ -2,7 +2,7 @@
 include("header.php");
 ?>
 
-<h1>Gentoo KDE bugs</h1>
+<h1>Gentoo EAPI distribution</h1>
 
 <a 
   <img src='eapi/month.png'>
