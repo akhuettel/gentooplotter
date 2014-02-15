@@ -7,7 +7,7 @@
 plotdir="${plotdir:-/home/huettel/gentooplotter}"
 
 logdir=${plotdir}/log
-webdir=${plotdir}/html
+webdir="${webdir:-${plotdir}/html"
 bindir=${plotdir}/bin
 moddir=${plotdir}/bin/modules
 tmpdir=${plotdir}/tmp
