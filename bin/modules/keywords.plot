@@ -8,11 +8,9 @@ hasq() {
         [[ " ${*:2} " == *" $1 "* ]]
 }
 
-source ${moddir}/${modname}.conf
-
+source ${modconf}
 
 for al in major prefix freebsd; do 
-
 
 plotcommand="plot "
 for (( x = 1 ; x < ${#columns[*]} ; x++ )); do
@@ -27,15 +25,13 @@ for (( x = 1 ; x < ${#columns[*]} ; x++ )); do
 		# echo \"$curarch\" in \"$alarchlist\"
 		if $(hasq ${curarch} ${alarchlist}) ; then 
 			# echo "adding \"${curarch}\" \"$kwst\" to plot"
-			plotcommand+=" \"${logdir}/${modname}.log\" using 1:$((x+2)) with lines title \"${columns[$x]//_/ }\" lw 2 lt $((${x}%8+1)) lc ${x}, "
+			plotcommand+=" \"${modlog}\" using 1:$((x+2)) with lines title \"${columns[$x]//_/ }\" lw 2 lt $((${x}%8+1)) lc ${x}, "
 		fi
 	fi
 done
-plotcommand+=" \"${logdir}/${modname}.log\" using 1:2 with lines title \"${columns[0]//_/ }\" lw 3 lt 1 lc 0"
-
+plotcommand+=" \"${modlog}\" using 1:2 with lines title \"${columns[0]//_/ }\" lw 3 lt 1 lc 0"
 
 # generate the overview plot
-
 
 gnuplot <<THEGNUPLOTSCRIPTHERE
 
@@ -44,7 +40,7 @@ set terminal postscript portrait noenhanced defaultplex \
    dashed dashlength 1.5 linewidth 1.0 butt noclip \
    palfuncparam 2000,0.003 \
    "Helvetica" 9
-set output "${webdir}/${modname}/$PLOTBASE-$scope-$al.ps"
+set output "${modwebdir}/kwplot-$scope-$al.ps"
 unset clip points
 set clip one
 unset clip two
@@ -192,23 +188,11 @@ THEGNUPLOTSCRIPTHERE
 
 # convert the overview plot to png
 
-
-convert -alpha on -negate -density 300 -geometry ${plotsize} ${webdir}/${modname}/kwplot-$scope-$al.ps ${webdir}/${modname}/kwplot-$scope-$al.png
-
-
+convert -alpha on -negate -density 300 -geometry ${plotsize} ${modwebdir}/kwplot-$scope-$al.ps ${modwebdir}/kwplot-$scope-$al.png
 
 done
 
-
-
-
-
-
-
-
-
 # generate the plot for full number of ebuilds
-
 
 x=0
 
@@ -220,7 +204,7 @@ set terminal postscript eps noenhanced defaultplex \
    solid dashlength 1.0 linewidth 1.0 butt noclip \
    palfuncparam 2000,0.003 \
    "Helvetica" 17
-set output "${webdir}/${modname}/kwplot-$scope-$x.ps"
+set output "${modwebdir}/kwplot-$scope-$x.ps"
 unset clip points
 set clip one
 unset clip two
@@ -355,27 +339,14 @@ GNUTERM = "x11"
 
 set xtics rotate by -35
 set format x "%Y/%m/%d"
-plot "$logfile" using 1:$((x+2)) with lines title "${columns[$x]//_/ }" lw 1.5 lt 5
+plot "${modlog}" using 1:$((x+2)) with lines title "${columns[$x]//_/ }" lw 1.5 lt 5
 #    EOF
 
 THEGNUPLOTSCRIPTHERE
 
-	convert -alpha on -negate -density 300 -geometry ${plotsize} $PLOTBASE-$scope-$x.ps $PLOTBASE-$scope-$x.png
-	cp $PLOTBASE-$scope-$x.png ${webdir}/${modname}
-
-
-
-
-
-
-
-
-
-
+convert -alpha on -negate -density 300 -geometry ${plotsize} ${modwebdir}/kwplot-$scope-$x.ps ${modwebdir}/kwplot-$scope-$x.png
 
 # generate the detail plots
-
-
 
 for ((x=1; x<${#columns[*]}; x+=2)); do
 	
@@ -386,7 +357,7 @@ set terminal postscript eps noenhanced defaultplex \
    solid dashlength 1.0 linewidth 1.0 butt noclip \
    palfuncparam 2000,0.003 \
    "Helvetica" 17
-set output "$PLOTBASE-$scope-$x.ps"
+set output "${modwebdir}/kwplot-$scope-$x.ps"
 unset clip points
 set clip one
 unset clip two
@@ -521,25 +492,21 @@ GNUTERM = "x11"
 
 set xtics rotate by -35
 set format x "%Y/%m/%d"
-plot "$logfile" using 1:$((x+2)) with lines title "${columns[$((x))]//_/ }" lw 1.5 lt 6, \
-     "$logfile" using 1:$((x+3)) with lines title "${columns[$((x+1))]//_/ }" lw 1.5 lt 5
+plot "${modlog}" using 1:$((x+2)) with lines title "${columns[$((x))]//_/ }" lw 1.5 lt 6, \
+     "${modlog}" using 1:$((x+3)) with lines title "${columns[$((x+1))]//_/ }" lw 1.5 lt 5
 #    EOF
 
 THEGNUPLOTSCRIPTHERE
 
-	convert -alpha on -negate -density 300 -geometry ${plotsize} $PLOTBASE-$scope-$x.ps $PLOTBASE-$scope-$x.png
-	cp $PLOTBASE-$scope-$x.png ${webdir}/${modname}
+convert -alpha on -negate -density 300 -geometry ${plotsize} ${modwebdir}/kwplot-$scope-$x.ps ${modwebdir}/kwplot-$scope-$x.png
 
 done
-
-
-
 
 # generate the index page
 
 hscope=${scope/all/}
 
-cat <<THEINDEXHEADER > ${webdir}/${modname}/kw${hscope}.php
+cat <<THEINDEXHEADER > ${modwebdir}/kw${hscope}.php
 <?php
 include("../private/header.php");
 ?>
@@ -555,16 +522,14 @@ THEINDEXHEADER
 
 
 for ((x=1; x<${#columns[*]}; x+=2)); do
-  echo "  <img src='kwplot-${scope}-$x.png'><br>"            >> ${webdir}/${modname}/kw${hscope}.php
+  echo "  <img src='kwplot-${scope}-$x.png'><br>"            >> ${modwebdir}/kw${hscope}.php
 done
 
 
-cat <<THEINDEXFOOTER >> ${webdir}/${modname}/kw${hscope}.php
+cat <<THEINDEXFOOTER >> ${modwebdir}/kw${hscope}.php
 
 <?php
 include("../private/footer.php");
 ?>
 THEINDEXFOOTER
-
-cp ${webdir}/${modname}/kw${hscope}.php ${webdir}/${modname}
 

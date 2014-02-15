@@ -18,9 +18,12 @@ plotsize='700'
 for script in ${moddir}/*.extract ; do 
 
   export modname=$(basename ${script} .extract)
+  export modwebdir=${webdir}/${modname}
+  export modconf=${moddir}/${modname}.conf
+  export modlog=$logdir/${modname}.log
 
   # now evaluate
-  echo "$now	$(source ${modname}.extract)" >> $logdir/${modname}.log
+  echo "$now	$(source ${modname}.extract)" >> ${modlog}
 
   for scope in month all year ; do 
     case $scope in 
