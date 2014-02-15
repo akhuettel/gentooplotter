@@ -1,0 +1,19 @@
+
+plotcommand="plot "
+for (( x = 0 ; x < 5 ; x++ )); do
+	plotcommand+=" \"${modlog}\" using 1:$((x+2)) with lines title \"EAPI ${x}\" lw 2 lt $((${x}%8+1)) lc ${x}, "
+done
+x=5
+plotcommand+=" \"${modlog}\" using 1:$((x+2)) with lines title \"EAPI ${x}\" lw 2 lt $((${x}%8+1)) lc ${x}"
+
+
+gnuplot <<THEGNUPLOTSCRIPTHERE
+
+load "${moddir}/plotdefaults"
+unset logscale y
+set xrange [ ${timefrom} : ${now} ]
+set yrange [ 0 : * ] noreverse nowriteback 
+set output "${modwebdir}/${scope}.ps"
+${plotcommand}
+
+THEGNUPLOTSCRIPTHERE

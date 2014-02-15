@@ -1,4 +1,0 @@
-#!/bin/bash
-
-wget -q -O - http://qa-reports.gentoo.org/output/eapi_usage.txt |
-	grep eapi | sed -e "s:^.* '::g" -e "s:' : :g" -e "s: pkgs.*$::g" | sort -n | sed -e 's:^[0-9] ::g' | column

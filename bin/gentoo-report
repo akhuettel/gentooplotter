@@ -15,16 +15,25 @@ tmpdir=${plotdir}/tmp
 now=`date -u +%s`
 plotsize='700'
 
+echo "Now is ${now}"
+
 for script in ${moddir}/*.extract ; do 
 
-  export modname=$(basename ${script} .extract)
-  export modwebdir=${webdir}/${modname}
-  export modconf=${moddir}/${modname}.conf
-  export modlog=$logdir/${modname}.log
+  modname=$(basename ${script} .extract)
+  modwebdir=${webdir}/${modname}
+  modconf=${moddir}/${modname}.conf
+  modlog=$logdir/${modname}.log
 
-  # now evaluate
-  echo "$now	$(source ${modname}.extract)" >> ${modlog}
+  echo "Processing module ${modname}:"
+  echo "  configuration file ${modconf}"
+  echo "  data log           ${modlog}"
+  echo "  web directory      ${modwebdir}"
 
+  # generate a new data line
+  echo -n "$now " >> ${modlog}
+  source ${moddir}/${modname}.extract >> ${modlog}
+
+  # update all the plots
   for scope in month all year ; do 
     case $scope in 
         all)

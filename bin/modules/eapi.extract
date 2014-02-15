@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source ${modconf}
+
+wget -q -O - http://qa-reports.gentoo.org/output/eapi_usage.txt | \
+   grep EAPI | perl ${moddir}/eapi.extract.pl 
