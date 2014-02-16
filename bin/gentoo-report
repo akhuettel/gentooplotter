@@ -39,13 +39,13 @@ for script in ${moddir}/*.extract ; do
   for scope in month all year ; do 
     case $scope in 
         all)
-                timefrom=1303676000
+                timefrom=1024162943
                 ;;
         year)
-                timefrom=$(($now-60*60*24*365))
+                timefrom=$(($now-2*60*60*24*365))
                 ;;
         month)
-                timefrom=$(($now-60*60*24*31))
+                timefrom=$(($now-2*60*60*24*31))
                 ;;
     esac
     source ${moddir}/${modname}.plot  
