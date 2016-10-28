@@ -1,6 +1,6 @@
 set terminal postscript noenhanced defaultplex \
    leveldefault color colortext \
-   dashed dashlength 1.5 linewidth 1.0 butt noclip \
+   solid dashlength 1.5 linewidth 1.0 butt noclip \
    palfuncparam 2000,0.003 \
    "Helvetica" 17
 unset clip points
