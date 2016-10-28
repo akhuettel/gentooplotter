@@ -26,6 +26,8 @@ for script in ${moddir}/*.extract ; do
   modconf=${moddir}/${modname}.conf
   modlog=$logdir/${modname}.log
 
+  mkdir -p "${modwebdir}"
+
   echo "Processing module ${modname}:"
   echo "  configuration file ${modconf}"
   echo "  data log           ${modlog}"
