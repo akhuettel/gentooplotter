@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source ${modconf}
+
+grep -r "URI=.*googlecode\.com.*" /usr/portage/metadata/md5-cache | wc -l | sed -e 's: .*$::'
