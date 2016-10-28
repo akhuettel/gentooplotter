@@ -19,6 +19,10 @@ include("header.php");
 </a>
 <br>
 
+<br>
+<a href="googlecode.log">raw data download</a>
+<br>
+
 <?php
 include("footer.php");
 ?>
