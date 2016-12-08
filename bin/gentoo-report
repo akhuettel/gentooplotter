@@ -12,7 +12,8 @@ bindir=${plotdir}/bin
 moddir=${plotdir}/bin/modules
 tmpdir=${plotdir}/tmp
 
-stupidgnuplotoffset=946684800
+# stupidgnuplotoffset=946684800
+stupidgnuplotoffset=0
 
 now=`date -u +%s`
 plotsize='700'
