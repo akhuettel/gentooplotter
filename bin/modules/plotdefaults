@@ -13,12 +13,7 @@ set ydata
 set zdata
 set x2data
 set y2data
-set timefmt x "%s"
-set timefmt y "%s"
-set timefmt z "%s"
-set timefmt x2 "%s"
-set timefmt y2 "%s"
-set timefmt cb "%s"
+set timefmt "%s"
 set boxwidth
 set style fill  empty border
 set style rectangle back fc lt -3 fillstyle   solid 1.00 border lt -1
