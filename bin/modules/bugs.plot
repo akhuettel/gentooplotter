@@ -2,12 +2,12 @@
 
 source ${moddir}/bugs.config
 
-for ((x=0; x<${#URLs[*]}; x++)); do
+for ((x=0; x<${#bugmails[*]}; x++)); do
 gnuplot &> /dev/null <<THEGNUPLOTSCRIPTHERE
 
 set terminal postscript eps noenhanced defaultplex \
    leveldefault color colortext \
-   solid dashlength 1.0 linewidth 1.0 butt noclip \
+   1.0 butt noclip \
    palfuncparam 2000,0.003 \
    "Helvetica" 17
 set output "$webdir/bugs/b-$scope-$x.ps"
@@ -21,12 +21,7 @@ set ydata
 set zdata
 set x2data
 set y2data
-set timefmt x "%s"
-set timefmt y "%s"
-set timefmt z "%s"
-set timefmt x2 "%s"
-set timefmt y2 "%s"
-set timefmt cb "%s"
+set timefmt "%s"
 set boxwidth
 set style fill  empty border
 set style rectangle back fc lt -3 fillstyle   solid 1.00 border lt -1
@@ -150,20 +145,27 @@ plot "$DATA" using 1:$((x+2)) with lines title "${NAMEs[$x]}" lw 1.5 lt 5
 
 THEGNUPLOTSCRIPTHERE
 
-	convert -alpha on -negate -density 300 -geometry $OUTPUTSIZE $PLOTBASE-$scope-$x.ps $PLOTBASE-$scope-$x.png
-	cp $PLOTBASE-$scope-$x.png $WEBDIR
+	convert -alpha on -negate -density 300 -geometry $outputsize $webdir/bugs/b-$scope-$x.ps $webdir/bugs/b-$scope-$x.png
 
 done
 
-webname=${name/all/index}
 
-cat <<THEINDEXHEADER > $PLOTDIR/${webname}.php
+for ((x=0; x<${#pages[*]}; x++)); do
+
+  if [ ${pages[$x]}==main ]; then pagename="" ; else pagename="-${pages[$x]}"; fi
+
+
+###
+### WORK IN PROGRESS
+###
+
+cat <<THEINDEXHEADER > $webdir/bugs${pagename}.php
 <?php
-include("../private/header.php");
+include("header.php");
 ?>
 
 <h1>Gentoo bug statistics</h1>
-<a href="index.php">all time</a> - <a href="year.php">last year</a> - <a href="month.php">last two months</a><br>
+<a href="bugs-all.php">all time</a> - <a href="bugs-year.php">last year</a> - <a href="bugs-month.php">last two months</a><br>
 
 THEINDEXHEADER
 

@@ -2,12 +2,12 @@
 
 source ${moddir}/bugs.config
 
-for ((x=0; x<${#URLs[*]}; x++)); do
+for ((x=0; x<${#bugmails[*]}; x++)); do
 
-	if [ "x${URLs[$x]}" = "x" ]; then
+	if [ "x${bugmails[$x]}" = "x" ]; then
 		number=x
 	else
-		number=`wget -q -O - ${URLs[$x]} | wc -l `
+		number=`wget -q -O - ${urlpart1}${bugmails[$x]}${urlpart2} | wc -l `
 		if [ "x$number" = "x0" ]; then
 			number=x
 		fi
