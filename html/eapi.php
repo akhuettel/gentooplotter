@@ -4,18 +4,10 @@ include("header.php");
 
 <h1>Gentoo EAPI distribution</h1>
 
-<a>
-  <img src='eapi/month.png'>
-</a>
-<br>
+<h2>Logarithmic plots</h2>
 
 <a>
   <img src='eapi/month-log.png'>
-</a>
-<br>
-
-<a>
-  <img src='eapi/year.png'>
 </a>
 <br>
 
@@ -25,12 +17,24 @@ include("header.php");
 <br>
 
 <a>
-  <img src='eapi/all.png'>
+  <img src='eapi/all-log.png'>
+</a>
+<br>
+
+<h2>Linear plots</h2>
+
+<a>
+  <img src='eapi/month.png'>
 </a>
 <br>
 
 <a>
-  <img src='eapi/all-log.png'>
+  <img src='eapi/year.png'>
+</a>
+<br>
+
+<a>
+  <img src='eapi/all.png'>
 </a>
 <br>
 
