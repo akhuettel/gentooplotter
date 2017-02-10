@@ -17,3 +17,14 @@ set output "${modwebdir}/${scope}.ps"
 ${plotcommand}
 
 THEGNUPLOTSCRIPTHERE
+
+gnuplot <<THEGNUPLOTSCRIPTLOGHERE
+
+load "${moddir}/plotdefaults"
+set logscale y
+set xrange [ $((${timefrom}-${stupidgnuplotoffset})) : $((${now}-${stupidgnuplotoffset})) ]
+set yrange [ 1 : * ] noreverse nowriteback 
+set output "${modwebdir}/${scope}-log.ps"
+${plotcommand}
+
+THEGNUPLOTSCRIPTLOGHERE
