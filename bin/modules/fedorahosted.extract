@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source ${modconf}
+
+grep -r "URI=.*fedorahosted\.org.*" /usr/portage/metadata/md5-cache | wc -l | sed -e 's: .*$::'
