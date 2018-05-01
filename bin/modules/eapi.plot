@@ -1,9 +1,9 @@
 
 plotcommand="plot "
-for (( x = 0 ; x < 6 ; x++ )); do
+for (( x = 0 ; x < 7 ; x++ )); do
 	plotcommand+=" \"${modlog}\" using 1:$((x+2)) with lines title \"EAPI ${x}\" lw 2 lt $((${x}%8+1)) lc ${x}, "
 done
-x=6
+x=7
 plotcommand+=" \"${modlog}\" using 1:$((x+2)) with lines title \"EAPI ${x}\" lw 2 lt $((${x}%8+1)) lc ${x}"
 
 
