@@ -2,24 +2,40 @@
 include("header.php");
 ?>
 
-<h1>Gentoo ebuild numbers</h1>
+<h1>Keyworded Gentoo ebuilds</h1>
+
+<h2>Overview</h2>
+
   <img src='keywords/all-major.png'><br>
   <img src='keywords/all-prefix.png'><br>
   <img src='keywords/all-freebsd.png'><br>
+
+<h2>All ebuilds</h2>
+
   <img src='keywords/all-0.png'><br>
+
+<h2>Stable arches</h2>
+
+  <img src='keywords/all-15.png'><br>
   <img src='keywords/all-1.png'><br>
-  <img src='keywords/all-3.png'><br>
   <img src='keywords/all-5.png'><br>
+  <img src='keywords/all-81.png'><br>
+  <img src='keywords/all-19.png'><br>
   <img src='keywords/all-7.png'><br>
   <img src='keywords/all-9.png'><br>
-  <img src='keywords/all-11.png'><br>
-  <img src='keywords/all-13.png'><br>
-  <img src='keywords/all-15.png'><br>
+  <img src='keywords/all-3.png'><br>
+
+<h2>Experimental arches</h2>
+
   <img src='keywords/all-17.png'><br>
-  <img src='keywords/all-19.png'><br>
   <img src='keywords/all-21.png'><br>
+  <img src='keywords/all-11.png'><br>
   <img src='keywords/all-23.png'><br>
   <img src='keywords/all-25.png'><br>
+  <img src='keywords/all-13.png'><br>
+
+<h2>Prefix</h2>
+
   <img src='keywords/all-27.png'><br>
   <img src='keywords/all-29.png'><br>
   <img src='keywords/all-31.png'><br>
