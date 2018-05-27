@@ -1,2 +1,2 @@
 log/*
-tmp/*
+tmp/[a-zA-Z0-9]*
