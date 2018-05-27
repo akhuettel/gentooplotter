@@ -25,7 +25,7 @@ for (( x = 1 ; x < ${#columns[*]} ; x++ )); do
 		# echo \"$curarch\" in \"$alarchlist\"
 		if $(hasq ${curarch} ${alarchlist}) ; then 
 			# echo "adding \"${curarch}\" \"$kwst\" to plot"
-			plotcommand+=" \"${modlog}\" using 1:$((x+2)) with lines title \"${columns[$x]/keyworded_for_//}\" lw 2 lt $((${x}%8+1)) lc ${x}, "
+			plotcommand+=" \"${modlog}\" using 1:$((x+2)) with lines title \"${columns[$x]/keyworded_for_/}\" lw 2 lt $((${x}%8+1)) lc ${x}, "
 		fi
 	fi
 done
@@ -36,8 +36,9 @@ plotcommand+=" \"${modlog}\" using 1:2 with lines title \"${columns[0]//_/ }\" l
 gnuplot <<THEGNUPLOTSCRIPTHERE
 
 load "${moddir}/plotdefaults"
+set terminal postscript dashed
 set xrange [ $((${timefrom}-${stupidgnuplotoffset})) : $((${now}-${stupidgnuplotoffset})) ]
-set yrange [ 1 : 40000 ] noreverse nowriteback
+set yrange [ 10 : 40000 ] noreverse nowriteback
 set logscale y
 set output "${modwebdir}/${scope}-${al}.ps"
 ${plotcommand}
