@@ -25,7 +25,7 @@ for (( x = 1 ; x < ${#columns[*]} ; x++ )); do
 		# echo \"$curarch\" in \"$alarchlist\"
 		if $(hasq ${curarch} ${alarchlist}) ; then 
 			# echo "adding \"${curarch}\" \"$kwst\" to plot"
-			plotcommand+=" \"${modlog}\" using 1:$((x+2)) with lines title \"${columns[$x]//_/ }\" lw 2 lt $((${x}%8+1)) lc ${x}, "
+			plotcommand+=" \"${modlog}\" using 1:$((x+2)) with lines title \"${columns[$x]/keyworded_for_//}\" lw 2 lt $((${x}%8+1)) lc ${x}, "
 		fi
 	fi
 done
