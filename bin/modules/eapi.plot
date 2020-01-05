@@ -1,10 +1,10 @@
 
 plotcommand="plot "
 for (( x = 0 ; x < 7 ; x++ )); do
-	plotcommand+=" \"${modlog}\" using 1:$((x+2)) with lines title \"EAPI ${x}\" lw 2 lt $((${x}%8+1)) lc ${x}, "
+	plotcommand+=" \"${modlog}\" using 1:(\$$((x+2))+0.001) with lines title \"EAPI ${x}\" lw 2 lt $((${x}%8+1)) lc ${x}, "
 done
 x=7
-plotcommand+=" \"${modlog}\" using 1:$((x+2)) with lines title \"EAPI ${x}\" lw 2 lt $((${x}%8+1)) lc ${x}"
+plotcommand+=" \"${modlog}\" using 1:(\$$((x+2))+0.001) with lines title \"EAPI ${x}\" lw 2 lt $((${x}%8+1)) lc ${x}"
 
 
 gnuplot <<THEGNUPLOTSCRIPTHERE
