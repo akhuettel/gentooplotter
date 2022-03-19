@@ -2,5 +2,5 @@
 
 source ${modconf}
 
-wget -q -O - https://qa-reports.gentoo.org/output/eapi_usage.txt | \
+wget -q -O - https://qa-reports.gentoo.org/output/eapi-usage/STATS.txt | \
    grep EAPI | perl ${moddir}/eapi.extract.pl
