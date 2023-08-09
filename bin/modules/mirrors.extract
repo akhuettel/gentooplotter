@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source ${modconf}
+
+wget -q -O - https://gentoo.osuosl.org/releases/.stats.txt | \
+   sed -e 's:\t.*::g' | tr "\n" " "
+
+echo
