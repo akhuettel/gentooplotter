@@ -24,10 +24,10 @@ THEGNUPLOTSCRIPTHERE
 
 plotcommand="plot "
 for (( x = 7 ; x < 33 ; x = x + 2 )); do
-	plotcommand+=" \"${modlog}\" using 2:(1*(\$${x})/1024/1024) with lines title \"${mirrors_columns[$((x-2))]%/autobuilds}\" lw 2 lt $((${x}%8+1)) lc ${x} dt (${x} < 8 ? 1 : 2), "
+	plotcommand+=" \"${modlog}\" using 2:(1*(\$${x})/1024/1024) with lines title \"${mirrors_columns[$((x-2))]%/autobuilds}\" lw 2 lt $((${x}%8+1)) lc ${x} dt $((${x}/8+1)), "
 done
 x=33
-plotcommand+=" \"${modlog}\" using 2:(1*(\$${x})/1024/1024) with lines title \"${mirrors_columns[$((x-2))]%/autobuilds}\" lw 2 lt $((${x}%8+1)) lc ${x} dt (${x} < 8 ? 1 : 2)"
+plotcommand+=" \"${modlog}\" using 2:(1*(\$${x})/1024/1024) with lines title \"${mirrors_columns[$((x-2))]%/autobuilds}\" lw 2 lt $((${x}%8+1)) lc ${x} dt $((${x}/8+1))"
 
 gnuplot <<THEGNUPLOTSCRIPTHERE
 
@@ -46,10 +46,10 @@ THEGNUPLOTSCRIPTHERE
 
 plotcommand="plot "
 for (( x = 8 ; x < 33 ; x = x + 2 )); do
-	plotcommand+=" \"${modlog}\" using 2:(1*(\$${x})/1024/1024) with lines title \"${mirrors_columns[$((x-2))]%/binpackages}\" lw 2 lt $((${x}%8+1)) lc ${x} dt (${x} < 8 ? 1 : 2), "
+	plotcommand+=" \"${modlog}\" using 2:(1*(\$${x})/1024/1024) with lines title \"${mirrors_columns[$((x-2))]%/binpackages}\" lw 2 lt $((${x}%8+1)) lc ${x} dt $((${x}/8+1)), "
 done
 x=34
-plotcommand+=" \"${modlog}\" using 2:(1*(\$${x})/1024/1024) with lines title \"${mirrors_columns[$((x-2))]%/binpackages}\" lw 2 lt $((${x}%8+1)) lc ${x} dt (${x} < 8 ? 1 : 2)"
+plotcommand+=" \"${modlog}\" using 2:(1*(\$${x})/1024/1024) with lines title \"${mirrors_columns[$((x-2))]%/binpackages}\" lw 2 lt $((${x}%8+1)) lc ${x} dt $((${x}/8+1))"
 
 gnuplot <<THEGNUPLOTSCRIPTHERE
 
