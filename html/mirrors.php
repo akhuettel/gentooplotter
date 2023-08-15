@@ -2,7 +2,7 @@
 include("header.php");
 ?>
 
-<h1>Gentoo mirror usage</h1>
+<h1>Gentoo mirror usage (kByte)</h1>
 
 <a>
   <img src='mirrors/total-month.png'>
