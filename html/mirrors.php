@@ -16,11 +16,6 @@ include("header.php");
 </a>
 <br>
 
-<a>
-  <img src='mirrors/total-all.png'>
-</a>
-<br>
-
 <h2>Autobuilds</h2>
 
 <a>
@@ -33,12 +28,6 @@ include("header.php");
 </a>
 <br>
 
-<a>
-  <img src='mirrors/autobuilds-all.png'>
-</a>
-<br>
-
-
 <h2>Binary packages</h2>
 
 <a>
@@ -50,12 +39,6 @@ include("header.php");
   <img src='mirrors/binpackages-year.png'>
 </a>
 <br>
-
-<a>
-  <img src='mirrors/binpackages-all.png'>
-</a>
-<br>
-
 
 <?php
 include("footer.php");
