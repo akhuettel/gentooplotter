@@ -10,11 +10,11 @@ for l in sys.stdin.readlines():
     freq.update(l.strip().split())
     total+=1
 
-print total,
+print(total,)
 
 arches=sys.argv[1:]
 
 for arch in arches:
-    print freq['~'+arch]+freq[arch],
-    print freq[arch],
+    print(freq['~'+arch]+freq[arch],)
+    print(freq[arch],)
 
