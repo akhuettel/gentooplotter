@@ -1,0 +1,20 @@
+#!/bin/bash
+
+source ${moddir}/blockers.config
+
+for (( x=0; x<${#blockers_bugs[*]}; x=x+2 )); do
+
+	csv=${blockers_url/##bugnumber##/${blockers_bugs[$x]}
+	if [ "x${csv}" = "x" ]; then
+		number=x
+	else
+		number=`wget -q -O - ${csv} | wc -l `
+		if [ "x$number" = "x0" ]; then
+			number=x
+		fi
+	fi
+
+	echo -n "$number	"
+	sleep 10s
+
+done
