@@ -2,7 +2,7 @@
 
 source ${moddir}/blockers.conf
 
-for (( x=0; x<${#blockers_bugs[*]}; x=x+2 )); do
+for (( x=0; x<${#blockers_bugs[*]}; x++ )); do
 
 	csv=${blockers_url/##bugnumber##/${blockers_bugs[$x]}}
 	if [ "x${csv}" = "x" ]; then
@@ -15,6 +15,6 @@ for (( x=0; x<${#blockers_bugs[*]}; x=x+2 )); do
 	fi
 
 	echo -n "$number	"
-	sleep 10s
+	sleep 3s
 
 done
