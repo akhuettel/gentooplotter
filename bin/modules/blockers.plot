@@ -1,10 +1,10 @@
 
 plotcommand="plot "
 #for (( x = 0 ; x < 1 ; x++ )); do
-#	plotcommand+=" \"${modlog}\" using 1:(\$$((x+1))+0.001) with lines title \"${blockers_names[$x]}\" lw 2 lt $((${x}%8+1)) lc ${x}, "
+#	plotcommand+=" \"${modlog}\" using 1:(\$$((x+2))+0.001) with lines title \"${blockers_names[$x]}\" lw 2 lt $((${x}%8+1)) lc ${x}, "
 #done
 x=0
-plotcommand+=" \"${modlog}\" using 1:(\$$((x+1))+0.001) with lines title \"${blockers_names[$x]}\" lw 2 lt $((${x}%8+1)) lc ${x}, "
+plotcommand+=" \"${modlog}\" using 1:(\$$((x+2))+0.001) with lines title \"${blockers_names[$x]}\" lw 2 lt $((${x}%8+1)) lc ${x}, "
 
 gnuplot <<THEGNUPLOTSCRIPTHERE
 
