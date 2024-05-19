@@ -12,7 +12,7 @@ load "${moddir}/plotdefaults"
 unset logscale y
 set xrange [ $((${timefrom}-${stupidgnuplotoffset})) : $((${now}-${stupidgnuplotoffset})) ]
 set yrange [ 0 : * ] noreverse nowriteback 
-set output "${modwebdir}/${scope}.ps"
+set output "${modwebdir}/${blockers_bugs[$x]}-${scope}.ps"
 ${plotcommand}
 
 THEGNUPLOTSCRIPTHERE
