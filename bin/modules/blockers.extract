@@ -4,11 +4,11 @@ source ${moddir}/blockers.conf
 
 for (( x=0; x<${#blockers_bugs[*]}; x++ )); do
 
-	csv=${blockers_url/mybugnumber/${blockers_bugs[$x]}}
+	csv=${blockers_csv/mybugnumber/${blockers_bugs[$x]}}
 	if [ "x${csv}" = "x" ]; then
 		number=x
 	else
-		number=`wget -q -O - ${csv} | wc -l `
+		number=$(wget -q -O - "${csv}" | wc -l)
 		if [ "x$number" = "x0" ]; then
 			number=x
 		fi
@@ -18,3 +18,4 @@ for (( x=0; x<${#blockers_bugs[*]}; x++ )); do
 	sleep 3s
 
 done
+echo
