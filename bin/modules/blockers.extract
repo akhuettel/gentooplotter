@@ -4,7 +4,7 @@ source ${moddir}/blockers.conf
 
 for (( x=0; x<${#blockers_bugs[*]}; x++ )); do
 
-	csv=${blockers_url/##bugnumber##/${blockers_bugs[$x]}}
+	csv=${blockers_url/mybugnumber/${blockers_bugs[$x]}}
 	if [ "x${csv}" = "x" ]; then
 		number=x
 	else
