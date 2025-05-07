@@ -125,4 +125,4 @@ set fit noerrorvariables
 GNUTERM = "x11"
 
 set format x "%Y/%m/%d"
-set xtics rotate by -35
+set xlabel rotate by -35
