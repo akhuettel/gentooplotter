@@ -10,7 +10,7 @@ while (<>) {
   $eapilist{$columns[0]}=$columns[1];
 };
 
-for ($eapi=0; $eapi<=9; $eapi++) {
+for ($eapi=0; $eapi<=10; $eapi++) {
   if (! $eapilist{$eapi}) { $eapilist{$eapi}="0"; };
   print "$eapilist{$eapi} ";
 }
